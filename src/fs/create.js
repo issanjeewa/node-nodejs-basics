@@ -4,21 +4,23 @@ import { fileURLToPath } from 'node:url';
 
 const create = async () => {
   // Write your code here
-  const filename = 'fresh.txt';
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const filepath = path.join(__dirname, 'files', filename);
-  const content = 'I am fresh and young';
+  try {
+    const filename = 'fresh.txt';
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const filepath = path.join(__dirname, 'files', filename);
+    const content = 'I am fresh and young';
 
-  const isFileExists = await checkFileExists(filepath);
+    const isFileExists = await checkFileExists(filepath);
 
-  if (isFileExists) {
+    if (isFileExists) throw new Error('FS operation failed');
+
+    await fs.writeFile(filepath, content);
+  } catch (error) {
     throw new Error('FS operation failed');
   }
-
-  await fs.writeFile(filepath, content);
 };
 
-// helper function for check is file exists
+// helper function for asynchronously check is directory of file file exists
 const checkFileExists = async (_filepath) => {
   try {
     await fs.access(_filepath);
