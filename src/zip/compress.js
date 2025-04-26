@@ -7,7 +7,6 @@ import zlib from 'zlib';
 
 const compress = async () => {
   // Write your code here
-  const filename = 'fileToCompress.txt';
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const filepath = path.join(__dirname, 'files', 'fileToCompress.txt');
 
