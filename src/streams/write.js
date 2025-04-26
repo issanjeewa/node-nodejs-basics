@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { pipeline } from 'stream/promises';
 import { fileURLToPath } from 'url';
 
 const write = async () => {
@@ -9,7 +10,7 @@ const write = async () => {
 
   const writeStream = fs.createWriteStream(filepath);
 
-  process.stdin.pipe(writeStream);
+  await pipeline(process.stdin, writeStream);
   // NOTE after running type something in console and press enter, to exit press ctrl + C
 };
 

@@ -1,4 +1,5 @@
 import { Transform } from 'stream';
+import { pipeline } from 'stream/promises';
 
 const transform = async () => {
   // Write your code here
@@ -10,7 +11,7 @@ const transform = async () => {
     },
   });
 
-  process.stdin.pipe(transformStream).pipe(process.stdout);
+  await pipeline(process.stdin, transformStream, process.stdout);
   // NOTE after running, type something in the terminal and press enter, to exit press ctrl + C
 };
 
